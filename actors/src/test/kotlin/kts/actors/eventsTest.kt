@@ -2,6 +2,7 @@ package kts.actors
 
 import com.badlogic.gdx.Input.Keys
 import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.Event
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputEvent.Type.*
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent
@@ -124,5 +125,10 @@ class EventsTest {
     event.isFocused = true
     actor.fire(event)
     assertTrue(focused)
+  }
+
+  @Suppress("unused")
+  class `Should extend KtxInputListener with no methods overridden` : KtxInputListener() {
+    // Guarantees all KtxInputListener methods are optional to implement.
   }
 }

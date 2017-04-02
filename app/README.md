@@ -19,6 +19,13 @@ optional `ApplicationListener` methods, it also automatically clears the screen 
 [fixed rendering time steps](http://www.badlogicgames.com/forum/viewtopic.php?p=96803#p96803), allowing you to customize
 time step duration and max time step with its constructor parameters. This is a solid base for your `ApplicationListener`
 implementation if you like working from scratch.
+- `KtxApplicationAdapter` is an `ApplicationListener` extension. Provides no-op implementations of all methods, without
+being an abstract class like `com.badlogic.gdx.ApplicationAdapter`.
+
+#### `InputProcessor` implementations
+
+- `KtxInputAdapter` is an `InputProcessor` extension. Provides no-op implementations of all methods, without
+being an abstract class like `com.badlogic.gdx.InputAdapter`.
 
 #### Miscellaneous utilities
 
@@ -63,6 +70,38 @@ import ktx.app.KotlinApplication
 
 class MyApplication : KotlinApplication(fixedTimeStep = 1f / 60f, maxDeltaTime = 1f / 15f) {
   // ...
+}
+```
+
+Implementing `KtxApplicationAdapter`:
+
+```Kotlin
+import ktx.app.KtxApplicationAdapter
+
+class MyApplicationListener : KtxApplicationAdapter {
+  // Implementation of all ApplicationListener methods is optional. Override the ones you need.
+
+  override fun create() {
+    // Load the assets...
+  }
+  override fun render() {
+    // ...and render your game.
+  }
+}
+```
+
+Implementing `KtxInputAdapter`:
+
+```Kotlin
+import ktx.app.KtxInputAdapter
+
+class MyInputListener : KtxInputAdapter {
+  // Implementation of all ApplicationListener methods is optional. Handle the events you plan on supporting.
+
+  override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int) {
+    // Handle mouse click...
+    return true
+  }
 }
 ```
 

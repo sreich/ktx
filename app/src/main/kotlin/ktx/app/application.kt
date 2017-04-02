@@ -2,6 +2,7 @@ package ktx.app
 
 import com.badlogic.gdx.ApplicationListener
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.graphics.GL20
 
 /**
@@ -12,7 +13,6 @@ import com.badlogic.gdx.graphics.GL20
  *    reported by [Gdx.graphics]. Defaults to 1/60.
  * @param maxDeltaTime maximum time (in seconds) stored by the application listener for fixed time step calculations.
  *    Defaults to 1 second.
- * @author MJ
  */
 abstract class KotlinApplication(protected val fixedTimeStep: Float = 1f / 60f,
                                  protected val maxDeltaTime: Float = 1f) : ApplicationListener {
@@ -48,6 +48,34 @@ abstract class KotlinApplication(protected val fixedTimeStep: Float = 1f / 60f,
 }
 
 /**
+ * Wrapping interface around [com.badlogic.gdx.ApplicationListener]. Provides no-op implementations of all methods,
+ * making them optional to implement.
+ */
+interface KtxApplicationAdapter : ApplicationListener {
+  override fun resize(width: Int, height: Int) = Unit
+  override fun create() = Unit
+  override fun render() = Unit
+  override fun resume() = Unit
+  override fun dispose() = Unit
+  override fun pause() = Unit
+}
+
+/**
+ * Wrapping interface around [com.badlogic.gdx.InputProcessor]. Provides empty implementations of all methods,
+ * making them optional to implement.
+ */
+interface KtxInputAdapter : InputProcessor {
+  override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int) = false
+  override fun keyDown(keycode: Int) = false
+  override fun keyTyped(character: Char) = false
+  override fun keyUp(keycode: Int) = false
+  override fun mouseMoved(screenX: Int, screenY: Int) = false
+  override fun scrolled(amount: Int) = false
+  override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int) = false
+  override fun touchDragged(screenX: Int, screenY: Int, pointer: Int) = false
+}
+
+/**
  * Clears current screen with the selected color. Inlined to lower the total method count. Assumes alpha is 1f.
  * @param red red color value.
  * @param green green color value.
@@ -55,6 +83,6 @@ abstract class KotlinApplication(protected val fixedTimeStep: Float = 1f / 60f,
  */
 @Suppress("NOTHING_TO_INLINE")
 inline fun clearScreen(red: Float, green: Float, blue: Float) {
-  Gdx.gl.glClearColor(red, green, blue, 1f);
-  Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+  Gdx.gl.glClearColor(red, green, blue, 1f)
+  Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 }
