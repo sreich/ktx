@@ -1,11 +1,16 @@
 dependencies {
     compile gradleApi()
     provided "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    compile "com.antwerkz.kibble:kibble:0.1"
 }
+
+apply plugin: 'groovy'
 buildscript {
     repositories {
         mavenCentral()
+        maven { url "https://dl.bintray.com/evanchooly/maven" }
     }
+
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
@@ -14,4 +19,5 @@ apply plugin: 'kotlin'
 repositories {
     mavenCentral()
 }
+
 
