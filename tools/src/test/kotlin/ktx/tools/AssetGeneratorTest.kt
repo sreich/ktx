@@ -15,9 +15,16 @@ class AssetGeneratorTest {
      * https://github.com/gradle/gradle/issues/778
      */
     @Test
-    fun testGenerate()
+    fun testGenerateTextures()
     {
         val gen = AssetGenerator("build/resources/test", "build/generated/source")
         gen.generateTextures()
+    }
+
+    @Test
+    fun testGenerateFonts()
+    {
+        val gen = AssetGenerator("build/resources/test", "build/generated/source")
+        gen.generateFonts()
     }
 }
